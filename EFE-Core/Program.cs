@@ -3,6 +3,7 @@ using EFE_Core;
 using static EFE_Core.ApplicationDbContext;
 using System.Linq;
 
+var _context = new ApplicationDbContext();
 
 SeedData();
 static void SeedData()
