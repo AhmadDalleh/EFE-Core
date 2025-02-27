@@ -11,7 +11,7 @@ namespace EFE_Core
     public class ApplicationDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-            options.UseSqlServer(@"Data Source=(localdb)\ProjectModels;Initial Catalog=EFE_Core1;Integrated Security=True");
+            options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EFE_Core;Integrated Security=True");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,7 @@ namespace EFE_Core
         }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
     }
     public class Blog
     {
@@ -37,4 +38,15 @@ namespace EFE_Core
         public Blog? Blog { get; set; }
     }
 
+    public class Stock
+    {
+        public int id { get; set; }
+        public string? Name { get; set; }
+        public string? Symbol { get; set; }
+        public string? Sector { get; set; }
+        public string? Industry { get; set; }
+        public string? Balance { get; set; }
+
+
+    }
 }

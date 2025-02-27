@@ -3,19 +3,10 @@ using EFE_Core;
 using static EFE_Core.ApplicationDbContext;
 using System.Linq;
 
+var _context = new ApplicationDbContext();
 
-SeedData();
-static void SeedData()
-{
-    using var context = new ApplicationDbContext();
+var stocks = _context.Stocks.Where(m =>m.id>500).ToList();
 
-    //context.Database.EnsureCreated();
 
-    //var blog = context.Blogs.FirstOrDefault(b => b.Url == "www.google.com");
-
-    //if(blog == null)
-    //    context.Blogs.Add(new Blog { Url = "www.google.com" });
-
-    context.SaveChanges();
-    
-}
+foreach (var stock in stocks)
+    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
