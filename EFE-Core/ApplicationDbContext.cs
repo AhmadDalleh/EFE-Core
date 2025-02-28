@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,26 @@ namespace EFE_Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Author>()
+               .HasOne(author => author.Nationality)
+               .WithMany(nationality => nationality.Authors)
+               .HasForeignKey(author => author.NationalityId);
+
+            modelBuilder.Entity<Book>()
+                .HasOne(book => book.Author)
+                .WithMany(author => author.Books)
+                .HasForeignKey(book => book.AuthorId);
+
+                
         }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Nationality> Nationalities { get; set; }
+
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
+        
     }
     public class Blog
     {
@@ -49,4 +65,36 @@ namespace EFE_Core
 
 
     }
-}
+    public class Nationality
+    {
+        public int NationalityId { get; set; }
+        public string? Name { get; set; }
+
+        public List<Author>? Authors { get; set; }
+
+    }
+
+    public class Author
+    {
+        public int AuthorId { get; set; }
+        public string? Name { get; set; }
+
+        public int NationalityId { get; set; }
+
+        public Nationality? Nationality { get; set; }
+        public List<Book>? Books { get; set; }
+    }
+
+    public class Book
+    {
+        public int BookId { get; set; }
+        public string? Name { get; set; }
+        public decimal? Price { get; set; }
+        public int AuthorId { get; set; }
+
+        public Author? Author { get; set; }
+
+    }
+
+
+ }

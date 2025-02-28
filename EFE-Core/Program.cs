@@ -5,8 +5,9 @@ using System.Linq;
 
 var _context = new ApplicationDbContext();
 
-var stocks = _context.Stocks.Where(m =>m.id>500).ToList();
+var stocks = _context.Stocks.Sum(m => m.id);
 
-
-foreach (var stock in stocks)
-    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
+Console.WriteLine($"ID: {stocks}");
+//foreach (var stock in stocks)
+//    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
+ 
