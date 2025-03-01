@@ -5,8 +5,8 @@ using System.Linq;
 
 var _context = new ApplicationDbContext();
 
-var stocks = _context.Stocks.Where(m =>m.id>500).ToList();
+var stocks = _context.Stocks.All(m => m.id>0);
 
-
-foreach (var stock in stocks)
-    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
+Console.WriteLine(stocks);
+//foreach (var stock in stocks)
+//    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
