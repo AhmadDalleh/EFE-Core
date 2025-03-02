@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Diagnostics.Metrics;
 
+
 var _context = new ApplicationDbContext();
 
 //var stocks = GetData(0, 20);
+
 
 var stocks = _context.Stocks
     .GroupBy(m => m.Industry)
@@ -36,6 +38,7 @@ foreach(var stock in stocks)
 //{
 //    var _context = new ApplicationDbContext();
 
-Console.WriteLine(stocks);
-//foreach (var stock in stocks)
-//    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
+//    return _context.Stocks.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+//}
+
+
