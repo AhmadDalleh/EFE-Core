@@ -84,17 +84,4 @@ namespace EFE_Core
         public Nationality? Nationality { get; set; }
         public List<Book>? Books { get; set; }
     }
-
-    public class Book
-    {
-        public int BookId { get; set; }
-        public string? Name { get; set; }
-        public decimal? Price { get; set; }
-        public int AuthorId { get; set; }
-
-        public Author? Author { get; set; }
-
-    }
-
-
- }
+}
