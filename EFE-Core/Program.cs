@@ -19,6 +19,8 @@ foreach(var stock in stocks)
 {
     System.Console.WriteLine($"{stock.Name}-- {stock.StockCount}--{stock.IdSum}");
 }
+
+
 //static void SeedData()
 //{
 //    using var _context = new ApplicationDbContext();
@@ -42,47 +44,7 @@ foreach(var stock in stocks)
 //}
 
 
-//static double ConvertStringToDouble(string input)
-//{
-//    if (string.IsNullOrWhiteSpace(input))
-//        return 0;
-//    input = input.Replace("$", "").Trim();
 
-//    double multiplier = 1;
-//    if(input.EndsWith("M",StringComparison.OrdinalIgnoreCase))
-//    {
-//        multiplier = 100_000_000;
-//        input = input[..^1];// Remove 'M'
-//    }
-//    else if (input.EndsWith("K", StringComparison.OrdinalIgnoreCase))
-//    {
-//        multiplier = 1_000;
-//        input = input[..^1]; // Remove 'K'
-//    }
-//    else if (input.EndsWith("B", StringComparison.OrdinalIgnoreCase))
-//    {
-//        multiplier = 1_000_000_000;
-//        input = input[..^1]; // Remove 'B'
-//    }
-//    // Try parsing the numeric part
-//    if (double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
-//    {
-//        return result * multiplier;
-//    }
-//    return 0;
-//}
-
-
-//using (var _context = new YourDbContext())
-//{
-//    // Retrieve all stocks
-//    var stocks = _context.Stocks.ToList();
-var stocks = _context.Stocks.Sum(m => m.id);
-
-Console.WriteLine($"ID: {stocks}");
-
-//foreach (var stock in stocks)
-//    Console.WriteLine($"ID: {stock.id}: {stock.Name}");
  
 
 //var stocks = _context.Stocks
