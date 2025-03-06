@@ -16,6 +16,10 @@ namespace EFE_Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Blog>()
+                .Property(b => b.AddeOn)
+                .HasDefaultValueSql("GETUTCDATE()");
+
             modelBuilder.Entity<Author>()
                .HasOne(author => author.Nationality)
                .WithMany(nationality => nationality.Authors)
@@ -40,8 +44,10 @@ namespace EFE_Core
     public class Blog
     {
         public int BlogId { get; set; }
+        public string? Name { get; set; }
         public string? Url { get; set; }
 
+        public DateTime? AddeOn { get; set; }
         public List<Post>? Posts { get; set; }
     }
 
