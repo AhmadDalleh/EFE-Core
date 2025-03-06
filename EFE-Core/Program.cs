@@ -39,16 +39,6 @@ foreach(var book in books)
 {
     Console.WriteLine($"{book.BookId} - {book.BookName} - {book.AuthorName} - {book.AuthorNationality}");
 }
-
-
-
-
-
-
-
-
-
-
 //static void SeedData()
 //{
 //    using var _context = new ApplicationDbContext();
