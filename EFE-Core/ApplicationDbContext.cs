@@ -85,7 +85,7 @@ namespace EFE_Core
         public int AuthorId { get; set; }
         public string? Name { get; set; }
 
-        public int NationalityId { get; set; }
+        public int? NationalityId { get; set; }
 
         public Nationality? Nationality { get; set; }
         public List<Book>? Books { get; set; }
