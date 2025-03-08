@@ -8,38 +8,40 @@ using System.Diagnostics.Metrics;
 
 var _context = new ApplicationDbContext();
 
-var books = _context.Books
-    .Join
-    (
-        _context.Authors,
-        book => book.AuthorId,
-        author => author.AuthorId,
-        (book, author) => new
-        {
-            BookId = book.BookId,
-            BookName = book.Name,
-            AuthorName = author.Name,
-            AuthorNationalityId = author.NationalityId
-        }
-    )
-    .Join(
-        _context.Nationalities,
-        book =>book.AuthorNationalityId,
-        nationality => nationality.NationalityId,
-        (book,nationality) => new
-        {
-            book.BookId,
-            book.BookName,
-            book.AuthorName,
-            AuthorNationality = nationality.Name
-        }
-    );
+//var books = _context.Books
+//    .Join
+//    (
+//        _context.Authors,
+//        book => book.AuthorId,
+//        author => author.AuthorId,
+//        (book, author) => new
+//        {
+//            BookId = book.BookId,
+//            BookName = book.Name,
+//            AuthorName = author.Name,
+//            AuthorNationalityId = author.NationalityId
+//        }
+//    )
+//    .GroupJoin(
+//        _context.Nationalities,
+//        book => book.AuthorNationalityId,
+//        nationality => nationality.NationalityId,
+//        (book, nationality) => new
+//        {
+//            Book = book,
+//            Nationlaity = nationality
+//        }
+//    )
+//    .SelectMany(
+//        b => b.Nationlaity.DefaultIfEmpty(),
+//        (b, n) => new { b.Book, Nationality = n }
+//    );
 
 
-foreach(var book in books)
-{
-    Console.WriteLine($"{book.BookId} - {book.BookName} - {book.AuthorName} - {book.AuthorNationality}");
-}
+//foreach(var book in books)
+//{
+//    Console.WriteLine($"{book.Book.BookId} - {book.Book.BookName} - {book.Book.AuthorName} - {book.Nationality?.Name}");
+//}
 
 
 //static void SeedData()
