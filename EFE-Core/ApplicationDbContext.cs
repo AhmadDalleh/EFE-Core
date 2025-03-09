@@ -12,7 +12,7 @@ namespace EFE_Core
     public class ApplicationDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-            options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EFE_Core;Integrated Security=True");
+            options.UseLazyLoadingProxies().UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EFE_Core;Integrated Security=True");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,13 +32,13 @@ namespace EFE_Core
 
                 
         }
-        public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Nationality> Nationalities { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Stock> Stocks { get; set; }
+        public virtual DbSet<Nationality> Nationalities { get; set; }
 
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Book> Books { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
         
     }
     public class Blog
@@ -48,7 +48,7 @@ namespace EFE_Core
         public string? Url { get; set; }
 
         public DateTime? AddeOn { get; set; }
-        public List<Post>? Posts { get; set; }
+        public virtual ICollection<Post>? Posts { get; set; }
     }
 
     public class Post
@@ -57,12 +57,12 @@ namespace EFE_Core
         public string? Title { get; set; }
         public string? Content { get; set; }
         public int BlogId { get; set; }
-        public Blog? Blog { get; set; }
+        public virtual Blog? Blog { get; set; }
     }
 
     public class Stock
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Symbol { get; set; }
         public string? Sector { get; set; }
@@ -76,28 +76,28 @@ namespace EFE_Core
         public int NationalityId { get; set; }
         public string? Name { get; set; }
 
-        public List<Author>? Authors { get; set; }
+        public virtual List<Author>? Authors { get; set; }
 
     }
 
     public class Author
     {
-        public int AuthorId { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
 
         public int? NationalityId { get; set; }
 
-        public Nationality? Nationality { get; set; }
-        public List<Book>? Books { get; set; }
+        public virtual Nationality? Nationality { get; set; }
+        public virtual List<Book>? Books { get; set; }
     }
     public class Book
     {
-        public int BookId { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public decimal? Price { get; set; }
         public int AuthorId { get; set; }
 
-        public Author? Author { get; set; }
+        public virtual Author? Author { get; set; }
 
     }
 }

@@ -4,9 +4,24 @@ using static EFE_Core.ApplicationDbContext;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Diagnostics.Metrics;
+using Microsoft.EntityFrameworkCore;
+
 
 
 var _context = new ApplicationDbContext();
+
+var book = _context.Books.SingleOrDefault(b => b.Id == 2);
+
+System.Console.WriteLine(book.Author.Name);
+
+_context.SaveChanges();
+
+
+
+
+
+
+
 
 //var books = _context.Books
 //    .Join
@@ -68,7 +83,7 @@ var _context = new ApplicationDbContext();
 
 
 
- 
+
 
 //var stocks = _context.Stocks
 //    .GroupBy(m => m.Industry)

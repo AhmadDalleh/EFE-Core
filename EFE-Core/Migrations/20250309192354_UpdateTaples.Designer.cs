@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFE_Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250306081626_MakeForgenkeyNullable")]
-    partial class MakeForgenkeyNullable
+    [Migration("20250309192354_UpdateTaples")]
+    partial class UpdateTaples
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace EFE_Core.Migrations
 
             modelBuilder.Entity("EFE_Core.Author", b =>
                 {
-                    b.Property<int>("AuthorId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -39,7 +39,7 @@ namespace EFE_Core.Migrations
                     b.Property<int?>("NationalityId")
                         .HasColumnType("int");
 
-                    b.HasKey("AuthorId");
+                    b.HasKey("Id");
 
                     b.HasIndex("NationalityId");
 
@@ -72,11 +72,11 @@ namespace EFE_Core.Migrations
 
             modelBuilder.Entity("EFE_Core.Book", b =>
                 {
-                    b.Property<int>("BookId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
@@ -87,7 +87,7 @@ namespace EFE_Core.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("BookId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -136,11 +136,11 @@ namespace EFE_Core.Migrations
 
             modelBuilder.Entity("EFE_Core.Stock", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Balance")
                         .HasColumnType("nvarchar(max)");
@@ -157,7 +157,7 @@ namespace EFE_Core.Migrations
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Stocks");
                 });

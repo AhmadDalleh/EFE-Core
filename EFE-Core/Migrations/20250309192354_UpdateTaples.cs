@@ -5,11 +5,16 @@
 namespace EFE_Core.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateBookAndAuthorAndNarionalityTables : Migration
+    public partial class UpdateTaples : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "id",
+                table: "Stocks",
+                newName: "Id");
+
             migrationBuilder.CreateTable(
                 name: "Nationalities",
                 columns: table => new
@@ -27,27 +32,26 @@ namespace EFE_Core.Migrations
                 name: "Authors",
                 columns: table => new
                 {
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NationalityId = table.Column<int>(type: "int", nullable: false)
+                    NationalityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                    table.PrimaryKey("PK_Authors", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Authors_Nationalities_NationalityId",
                         column: x => x.NationalityId,
                         principalTable: "Nationalities",
-                        principalColumn: "NationalityId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "NationalityId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
@@ -55,12 +59,12 @@ namespace EFE_Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.BookId);
+                    table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Books_Authors_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Authors",
-                        principalColumn: "AuthorId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -86,6 +90,11 @@ namespace EFE_Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Nationalities");
+
+            migrationBuilder.RenameColumn(
+                name: "Id",
+                table: "Stocks",
+                newName: "id");
         }
     }
 }
