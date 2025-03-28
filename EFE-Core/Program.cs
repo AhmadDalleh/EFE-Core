@@ -5,17 +5,76 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Diagnostics.Metrics;
 using Microsoft.EntityFrameworkCore;
+using EFE_Core.Models;
+using EFE_Core.Migrations;
+using System.Globalization;
 
 
 
-var _context = new ApplicationDbContext();
+using (var _context = new ApplicationDbContext())
+{
+    // Retrieve all stocks
+    var stocks = _context.Stocks.ToList();
+    
 
-var book = _context.Books.SingleOrDefault(b => b.Id == 2);
+    // Convert balances to double and find the stock with the maximum balance
+    var stockWithMaxBalance = stocks
+        .Select(stock => new
+        {
+            stock.Id,
+            Balance = ConvertStringToDouble(stock.Balance)
+        })
+        .MaxBy(stock => stock.Balance);
+    var stockWithMinBalance = stocks
+        .Select(stock => new
+        {
+            stock.Id,
+            Balance = ConvertStringToDouble(stock.Balance)
+        })
+        .MinBy(stock => stock.Balance);
+    if (stockWithMaxBalance != null || stockWithMinBalance != null)
+    {
+        Console.WriteLine($"Stock ID with max balance: {stockWithMaxBalance.Id}");
+        Console.WriteLine($"Max Balance: {stockWithMaxBalance.Balance}");
+        Console.WriteLine($"Stock ID with max balance: {stockWithMinBalance.Id}");
+        Console.WriteLine($"Max Balance: {stockWithMinBalance.Balance}");
+    }
+    else
+    {
+        Console.WriteLine("No valid balances found.");
+    }
+}
 
-System.Console.WriteLine(book.Author.Name);
 
-_context.SaveChanges();
+static double ConvertStringToDouble(string input)
+{
+    if (string.IsNullOrWhiteSpace(input))
+        return 0;
+    input = input.Replace("$", "").Trim();
 
+    double multiplier = 1;
+    if (input.EndsWith("M", StringComparison.OrdinalIgnoreCase))
+    {
+        multiplier = 100_000_000;
+        input = input[..^1];// Remove 'M'
+    }
+    else if (input.EndsWith("K", StringComparison.OrdinalIgnoreCase))
+    {
+        multiplier = 1_000;
+        input = input[..^1]; // Remove 'K'
+    }
+    else if (input.EndsWith("B", StringComparison.OrdinalIgnoreCase))
+    {
+        multiplier = 1_000_000_000;
+        input = input[..^1]; // Remove 'B'
+    }
+    // Try parsing the numeric part
+    if (double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+    {
+        return result * multiplier;
+    }
+    return 0;
+}
 
 
 
